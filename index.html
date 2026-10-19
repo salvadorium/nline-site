@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#091824">
+  <meta name="theme-color" content="#f7f8fc">
   <title>Ночная линия — городская обсерватория</title>
   <style>
     :root {
-      color-scheme: dark;
-      --cream: #eef0e8;
-      --paper: #f7f4e9;
-      --green: #102534;
-      --green-soft: #385163;
-      --coral: #f08a70;
-      --muted: #b6c3c7;
-      --line: #314550;
+      color-scheme: light;
+      --cream: #26354d;
+      --paper: #ffffff;
+      --green: #26354d;
+      --green-soft: #59677d;
+      --coral: #c76653;
+      --muted: #718096;
+      --line: #dce2ed;
       --serif: Georgia, "Times New Roman", serif;
       --sans: "Trebuchet MS", Arial, sans-serif;
     }
@@ -23,13 +23,13 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background-color: #091824;
+      background-color: #f7f8fc;
       background-image:
-        radial-gradient(1px 1px at 18px 26px, #fff8d9 98%, transparent),
-        radial-gradient(1px 1px at 73px 91px, #dcecff 98%, transparent),
-        radial-gradient(1.5px 1.5px at 142px 47px, #fff8d9 98%, transparent),
-        radial-gradient(1px 1px at 113px 153px, #dcecff 98%, transparent),
-        linear-gradient(180deg, #091824 0%, #102333 48%, #0b1d2a 100%);
+        radial-gradient(1px 1px at 18px 26px, #a9b9d2 98%, transparent),
+        radial-gradient(1px 1px at 73px 91px, #c1cada 98%, transparent),
+        radial-gradient(1.5px 1.5px at 142px 47px, #9fabc5 98%, transparent),
+        radial-gradient(1px 1px at 113px 153px, #b3bfd5 98%, transparent),
+        linear-gradient(180deg, #fbfcff 0%, #f4f6fb 48%, #f9faff 100%);
       background-size: 197px 181px, 223px 207px, 269px 239px, 311px 281px, auto;
       background-attachment: fixed;
       color: var(--cream);
@@ -38,7 +38,7 @@
     }
     a { color: inherit; }
     .wrap { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
-    .site-header { border-bottom: 1px solid #314550; }
+    .site-header { border-bottom: 1px solid #e0e5ef; }
     .header-inner {
       min-height: 78px;
       display: flex;
@@ -49,7 +49,7 @@
     .brand { font-size: 20px; font-weight: 800; letter-spacing: -.04em; text-decoration: none; }
     .nav { display: flex; gap: clamp(16px, 3vw, 36px); font-size: 13px; font-weight: 700; }
     .nav a { text-decoration: none; }
-    .nav a:hover, .nav a:focus-visible { color: #ffad91; }
+    .nav a:hover, .nav a:focus-visible { color: #c76653; }
 
     .hero {
       min-height: 590px;
@@ -63,7 +63,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      color: #bed0d4;
+      color: #76849a;
       font-size: 11px;
       font-weight: 800;
       letter-spacing: .16em;
@@ -89,14 +89,14 @@
       border: 0;
       border-radius: 4px;
       background: #fffdf7;
-      color: #102534;
+      color: #26354d;
       font: 800 14px var(--sans);
       text-decoration: none;
       cursor: pointer;
-      box-shadow: 0 8px 28px #020b1266;
+      box-shadow: 0 8px 28px #26354d1c;
       transition: background .18s ease, transform .18s ease;
     }
-    .button:hover { background: #f0dfb8; transform: translateY(-2px); }
+    .button:hover { background: #e9edf6; transform: translateY(-2px); }
     .button:focus-visible, .program-button:focus-visible, a:focus-visible { outline: 3px solid #e8755e; outline-offset: 4px; }
     .button span { font-size: 19px; line-height: 1; }
 
@@ -107,25 +107,25 @@
       place-items: center;
       overflow: hidden;
       border-radius: 48% 48% 4px 4px;
-      background: radial-gradient(ellipse at 50% 45%, #1e3b4b, #0b1924 72%);
-      box-shadow: 0 22px 70px #020b1255;
+      background: radial-gradient(ellipse at 50% 45%, #dfe7f4, #b7c5dc 72%);
+      box-shadow: 0 22px 70px #50618124;
       isolation: isolate;
     }
-    .sky-art::before, .sky-art::after { content: ""; position: absolute; border: 1px solid #a4b7a1; border-radius: 50%; opacity: .55; }
+    .sky-art::before, .sky-art::after { content: ""; position: absolute; border: 1px solid #7184a2; border-radius: 50%; opacity: .45; }
     .sky-art::before { width: 270px; height: 270px; }
     .sky-art::after { width: 345px; height: 345px; }
     .moon {
       width: 142px;
       aspect-ratio: 1;
       border-radius: 50%;
-      background: radial-gradient(circle at 34% 30%, #fff7dc 0 3px, transparent 4px), radial-gradient(circle at 68% 67%, #c8c6a7 0 9px, transparent 10px), radial-gradient(circle at 30% 69%, #d5d0b5 0 13px, transparent 14px), #eee7ce;
-      box-shadow: 0 0 75px #f6e7ba55;
+      background: radial-gradient(circle at 34% 30%, #ffffff 0 3px, transparent 4px), radial-gradient(circle at 68% 67%, #c9cfdb 0 9px, transparent 10px), radial-gradient(circle at 30% 69%, #d9deea 0 13px, transparent 14px), #f2f4f8;
+      box-shadow: 0 0 75px #ffffffb0;
       z-index: 1;
     }
-    .star { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #f6e7ba; box-shadow: 0 0 10px #f6e7ba; }
+    .star { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px #fff; }
     .star.s1 { top: 24%; left: 27%; } .star.s2 { top: 33%; right: 20%; }
     .star.s3 { bottom: 23%; left: 21%; } .star.s4 { bottom: 31%; right: 27%; }
-    .art-note { position: absolute; right: 24px; bottom: 20px; color: #d9e0d1; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
+    .art-note { position: absolute; right: 24px; bottom: 20px; color: #52627c; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
 
     .offer { padding-block: 45px 138px; }
     .offer-card {
@@ -137,34 +137,34 @@
       overflow: hidden;
       padding: 56px 64px;
       border-radius: 4px;
-      border: 1px solid #596c70;
-      background: linear-gradient(120deg, #1c3544, #142b3a 65%, #1c3544);
-      box-shadow: 0 20px 55px #020b1244;
+      border: 1px solid #e0e5ef;
+      background: linear-gradient(120deg, #fff, #f2f5fb 65%, #fff);
+      box-shadow: 0 20px 55px #50618118;
     }
-    .offer-card::after { content: "✳"; position: absolute; right: 185px; top: -43px; color: #294250; font-size: 190px; line-height: 1; pointer-events: none; }
-    .offer-label { margin-bottom: 12px; color: #ffad91; font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .offer-card::after { content: "✳"; position: absolute; right: 185px; top: -43px; color: #e9edf6; font-size: 190px; line-height: 1; pointer-events: none; }
+    .offer-label { margin-bottom: 12px; color: #c76653; font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
     .offer-card h2 { position: relative; z-index: 1; margin: 0; font: 500 clamp(26px, 3vw, 38px)/1.12 var(--serif); letter-spacing: -.04em; }
-    .offer-detail { position: relative; z-index: 1; max-width: 280px; margin: 0; color: #d0dadd; font-size: 14px; }
+    .offer-detail { position: relative; z-index: 1; max-width: 280px; margin: 0; color: #59677d; font-size: 14px; }
 
-    .programs { padding-block: 96px 112px; background: #102534; color: var(--cream); border-block: 1px solid #314550; }
+    .programs { padding-block: 96px 112px; background: #f1f4fa; color: var(--cream); border-block: 1px solid #e0e5ef; }
     .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 34px; }
-    .section-heading .eyebrow { color: #bed0d4; }
+    .section-heading .eyebrow { color: #76849a; }
     .section-heading h2 { max-width: 580px; margin: 17px 0 0; font: 500 clamp(42px, 6vw, 68px)/1 var(--serif); letter-spacing: -.055em; }
-    .heading-note { max-width: 235px; margin: 0 0 5px; color: #bed0d4; font-size: 13px; }
+    .heading-note { max-width: 235px; margin: 0 0 5px; color: #718096; font-size: 13px; }
     .program-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
     .program-button {
       min-width: 118px;
       padding: 13px 20px;
-      border: 1px solid #69808a;
+      border: 1px solid #c5cedd;
       border-radius: 2px;
       background: transparent;
-      color: #eef0e8;
+      color: #42516a;
       font: 700 13px var(--sans);
       cursor: pointer;
       transition: background .18s ease, color .18s ease, border-color .18s ease;
     }
-    .program-button:hover { border-color: #ffad91; }
-    .program-button[aria-pressed="true"] { border-color: #f08a70; background: #f08a70; color: #162532; }
+    .program-button:hover { border-color: #c76653; }
+    .program-button[aria-pressed="true"] { border-color: #c76653; background: #c76653; color: #fff; }
     .route-card {
       display: grid;
       grid-template-columns: 1fr 220px;
@@ -176,7 +176,7 @@
     }
     .route-card h3 { margin: 0 0 22px; font: 500 clamp(32px, 4vw, 48px)/1.05 var(--serif); letter-spacing: -.045em; }
     .route-description { max-width: 570px; margin-bottom: 27px; color: var(--green-soft); font-size: 16px; }
-    .focus { margin: 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .focus { margin: 0; padding-top: 18px; border-top: 1px solid var(--line); color: #59677d; font-size: 13px; }
     .focus strong { display: block; margin-bottom: 5px; color: var(--coral); font-size: 10px; letter-spacing: .15em; text-transform: uppercase; }
     .route-meta { display: grid; align-content: center; gap: 21px; padding-left: 25px; border-left: 1px solid var(--line); }
     .meta-label { display: block; margin-bottom: 3px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
@@ -184,11 +184,11 @@
     .steps { padding-block: 112px 132px; }
     .steps h2 { max-width: 540px; margin: 16px 0 42px; font: 500 clamp(42px, 5vw, 62px)/1.02 var(--serif); letter-spacing: -.05em; }
     .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-    .step { padding-top: 17px; border-top: 1px solid #526771; }
-    .step-number { color: #ffad91; font: 500 25px var(--serif); }
+    .step { padding-top: 17px; border-top: 1px solid #d3dae7; }
+    .step-number { color: #c76653; font: 500 25px var(--serif); }
     .step h3 { margin: 16px 0 8px; font: 500 24px var(--serif); }
-    .step p { max-width: 280px; margin: 0; color: #bed0d4; font-size: 13px; }
-    footer { padding-block: 22px; border-top: 1px solid #314550; color: #9fb1b8; font-size: 11px; }
+    .step p { max-width: 280px; margin: 0; color: #718096; font-size: 13px; }
+    footer { padding-block: 22px; border-top: 1px solid #e0e5ef; color: #718096; font-size: 11px; }
     .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
@@ -243,7 +243,7 @@
         <p class="hero-copy">Небольшие наблюдения в городе — чтобы остановиться, поднять голову и рассмотреть знакомое небо по-новому.</p>
         <a class="button" href="#programs">Выбрать программу <span aria-hidden="true">↘</span></a>
       </div>
-      <div class="sky-art" role="img" aria-label="Светлая Луна на фоне тёмно-зелёного ночного неба">
+      <div class="sky-art" role="img" aria-label="Светлая Луна на фоне светлого звёздного неба">
         <span class="star s1" aria-hidden="true"></span><span class="star s2" aria-hidden="true"></span>
         <span class="star s3" aria-hidden="true"></span><span class="star s4" aria-hidden="true"></span>
         <span class="moon" aria-hidden="true"></span>
