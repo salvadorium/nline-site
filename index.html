@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#091824">
+  <title>Ночная линия — городская обсерватория</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --cream: #eef0e8;
+      --paper: #f7f4e9;
+      --green: #102534;
+      --green-soft: #385163;
+      --coral: #f08a70;
+      --muted: #b6c3c7;
+      --line: #314550;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Trebuchet MS", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background-color: #091824;
+      background-image:
+        radial-gradient(1px 1px at 18px 26px, #fff8d9 98%, transparent),
+        radial-gradient(1px 1px at 73px 91px, #dcecff 98%, transparent),
+        radial-gradient(1.5px 1.5px at 142px 47px, #fff8d9 98%, transparent),
+        radial-gradient(1px 1px at 113px 153px, #dcecff 98%, transparent),
+        linear-gradient(180deg, #091824 0%, #102333 48%, #0b1d2a 100%);
+      background-size: 197px 181px, 223px 207px, 269px 239px, 311px 281px, auto;
+      background-attachment: fixed;
+      color: var(--cream);
+      font-family: var(--sans);
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+    .site-header { border-bottom: 1px solid #314550; }
+    .header-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand { font-size: 20px; font-weight: 800; letter-spacing: -.04em; text-decoration: none; }
+    .nav { display: flex; gap: clamp(16px, 3vw, 36px); font-size: 13px; font-weight: 700; }
+    .nav a { text-decoration: none; }
+    .nav a:hover, .nav a:focus-visible { color: #ffad91; }
+
+    .hero {
+      min-height: 590px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: center;
+      gap: 34px;
+      padding-block: 76px 68px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #bed0d4;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 23px; height: 2px; background: var(--coral); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 720px;
+      margin-block: 20px 22px;
+      font: 500 clamp(56px, 7.4vw, 98px)/.98 var(--serif);
+      letter-spacing: -.065em;
+    }
+    .hero-copy { max-width: 510px; margin-bottom: 0; color: var(--muted); font-size: 17px; }
+    .button {
+      display: inline-flex;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 15px;
+      padding: 0 30px;
+      border: 0;
+      border-radius: 4px;
+      background: #fffdf7;
+      color: #102534;
+      font: 800 14px var(--sans);
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 8px 28px #020b1266;
+      transition: background .18s ease, transform .18s ease;
+    }
+    .button:hover { background: #f0dfb8; transform: translateY(-2px); }
+    .button:focus-visible, .program-button:focus-visible, a:focus-visible { outline: 3px solid #e8755e; outline-offset: 4px; }
+    .button span { font-size: 19px; line-height: 1; }
+
+    .sky-art {
+      position: relative;
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 48% 48% 4px 4px;
+      background: radial-gradient(ellipse at 50% 45%, #1e3b4b, #0b1924 72%);
+      box-shadow: 0 22px 70px #020b1255;
+      isolation: isolate;
+    }
+    .sky-art::before, .sky-art::after { content: ""; position: absolute; border: 1px solid #a4b7a1; border-radius: 50%; opacity: .55; }
+    .sky-art::before { width: 270px; height: 270px; }
+    .sky-art::after { width: 345px; height: 345px; }
+    .moon {
+      width: 142px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 34% 30%, #fff7dc 0 3px, transparent 4px), radial-gradient(circle at 68% 67%, #c8c6a7 0 9px, transparent 10px), radial-gradient(circle at 30% 69%, #d5d0b5 0 13px, transparent 14px), #eee7ce;
+      box-shadow: 0 0 75px #f6e7ba55;
+      z-index: 1;
+    }
+    .star { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #f6e7ba; box-shadow: 0 0 10px #f6e7ba; }
+    .star.s1 { top: 24%; left: 27%; } .star.s2 { top: 33%; right: 20%; }
+    .star.s3 { bottom: 23%; left: 21%; } .star.s4 { bottom: 31%; right: 27%; }
+    .art-note { position: absolute; right: 24px; bottom: 20px; color: #d9e0d1; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
+
+    .offer { padding-block: 45px 138px; }
+    .offer-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 42px;
+      overflow: hidden;
+      padding: 56px 64px;
+      border-radius: 4px;
+      border: 1px solid #596c70;
+      background: linear-gradient(120deg, #1c3544, #142b3a 65%, #1c3544);
+      box-shadow: 0 20px 55px #020b1244;
+    }
+    .offer-card::after { content: "✳"; position: absolute; right: 185px; top: -43px; color: #294250; font-size: 190px; line-height: 1; pointer-events: none; }
+    .offer-label { margin-bottom: 12px; color: #ffad91; font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .offer-card h2 { position: relative; z-index: 1; margin: 0; font: 500 clamp(26px, 3vw, 38px)/1.12 var(--serif); letter-spacing: -.04em; }
+    .offer-detail { position: relative; z-index: 1; max-width: 280px; margin: 0; color: #d0dadd; font-size: 14px; }
+
+    .programs { padding-block: 96px 112px; background: #102534; color: var(--cream); border-block: 1px solid #314550; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 34px; }
+    .section-heading .eyebrow { color: #bed0d4; }
+    .section-heading h2 { max-width: 580px; margin: 17px 0 0; font: 500 clamp(42px, 6vw, 68px)/1 var(--serif); letter-spacing: -.055em; }
+    .heading-note { max-width: 235px; margin: 0 0 5px; color: #bed0d4; font-size: 13px; }
+    .program-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+    .program-button {
+      min-width: 118px;
+      padding: 13px 20px;
+      border: 1px solid #69808a;
+      border-radius: 2px;
+      background: transparent;
+      color: #eef0e8;
+      font: 700 13px var(--sans);
+      cursor: pointer;
+      transition: background .18s ease, color .18s ease, border-color .18s ease;
+    }
+    .program-button:hover { border-color: #ffad91; }
+    .program-button[aria-pressed="true"] { border-color: #f08a70; background: #f08a70; color: #162532; }
+    .route-card {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 40px;
+      padding: clamp(34px, 6vw, 60px);
+      background: var(--paper);
+      color: var(--green);
+      border-radius: 3px;
+    }
+    .route-card h3 { margin: 0 0 22px; font: 500 clamp(32px, 4vw, 48px)/1.05 var(--serif); letter-spacing: -.045em; }
+    .route-description { max-width: 570px; margin-bottom: 27px; color: var(--green-soft); font-size: 16px; }
+    .focus { margin: 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .focus strong { display: block; margin-bottom: 5px; color: var(--coral); font-size: 10px; letter-spacing: .15em; text-transform: uppercase; }
+    .route-meta { display: grid; align-content: center; gap: 21px; padding-left: 25px; border-left: 1px solid var(--line); }
+    .meta-label { display: block; margin-bottom: 3px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .meta-value { font: 500 21px var(--serif); }
+    .steps { padding-block: 112px 132px; }
+    .steps h2 { max-width: 540px; margin: 16px 0 42px; font: 500 clamp(42px, 5vw, 62px)/1.02 var(--serif); letter-spacing: -.05em; }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .step { padding-top: 17px; border-top: 1px solid #526771; }
+    .step-number { color: #ffad91; font: 500 25px var(--serif); }
+    .step h3 { margin: 16px 0 8px; font: 500 24px var(--serif); }
+    .step p { max-width: 280px; margin: 0; color: #bed0d4; font-size: 13px; }
+    footer { padding-block: 22px; border-top: 1px solid #314550; color: #9fb1b8; font-size: 11px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+    @media (max-width: 720px) {
+      .wrap { width: min(100% - 36px, 540px); }
+      .header-inner { min-height: 70px; align-items: flex-start; flex-direction: column; justify-content: center; gap: 7px; padding-block: 12px; }
+      .nav { gap: 17px; font-size: 11px; }
+      .hero { min-height: 0; grid-template-columns: 1fr; gap: 36px; padding-block: 65px 52px; }
+      h1 { font-size: clamp(54px, 15vw, 82px); }
+      .sky-art { min-height: 260px; }
+      .moon { width: 112px; }
+      .offer { padding-block: 30px 88px; }
+      .offer-card { grid-template-columns: 1fr; gap: 22px; padding: 38px 30px; }
+      .offer-card::after { right: -12px; top: -25px; font-size: 145px; }
+      .programs { padding-block: 78px; }
+      .section-heading { align-items: flex-start; flex-direction: column; gap: 16px; }
+      .heading-note { max-width: 380px; }
+      .program-tabs { display: grid; grid-template-columns: repeat(3, 1fr); }
+      .program-button { min-width: 0; padding-inline: 8px; }
+      .route-card { grid-template-columns: 1fr; gap: 26px; }
+      .route-meta { grid-template-columns: 1fr 1fr; padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+      .steps { padding-block: 86px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 27px; }
+      .step { display: grid; grid-template-columns: 38px 1fr; column-gap: 12px; }
+      .step-number { grid-row: span 2; }
+      .step h3 { margin: 0 0 5px; }
+      .step p { grid-column: 2; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top">Ночная линия<span aria-hidden="true">.</span></a>
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="#format">Формат</a>
+        <a href="#programs">Программы</a>
+        <a href="#steps">Как это будет</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="wrap hero" aria-labelledby="hero-title">
+      <div>
+        <span class="eyebrow">Городская обсерватория</span>
+        <h1 id="hero-title">Ночь, которую видно в деталях</h1>
+        <p class="hero-copy">Небольшие наблюдения в городе — чтобы остановиться, поднять голову и рассмотреть знакомое небо по-новому.</p>
+        <a class="button" href="#programs">Выбрать программу <span aria-hidden="true">↘</span></a>
+      </div>
+      <div class="sky-art" role="img" aria-label="Светлая Луна на фоне тёмно-зелёного ночного неба">
+        <span class="star s1" aria-hidden="true"></span><span class="star s2" aria-hidden="true"></span>
+        <span class="star s3" aria-hidden="true"></span><span class="star s4" aria-hidden="true"></span>
+        <span class="moon" aria-hidden="true"></span>
+        <span class="art-note" aria-hidden="true">Смотрим внимательнее</span>
+      </div>
+    </section>
+
+    <section class="wrap offer" id="format" aria-labelledby="offer-title">
+      <div class="offer-card">
+        <div>
+          <p class="offer-label">Формат вечера</p>
+          <h2 id="offer-title">Одно небо.<br>Три способа его увидеть.</h2>
+        </div>
+        <p class="offer-detail">Выберите маршрут по настроению: от тихого знакомства с Луной до большой карты созвездий.</p>
+      </div>
+    </section>
+
+    <section class="programs" id="programs" aria-labelledby="programs-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Выберите свой маршрут</span>
+            <h2 id="programs-title">Три маршрута по одному небу</h2>
+          </div>
+          <p class="heading-note">Спокойный вечер в небольшой группе. Переключайте программы, чтобы сравнить формат.</p>
+        </div>
+        <div class="program-tabs" role="group" aria-label="Программы наблюдений">
+          <button class="program-button" type="button" data-program="moon" aria-pressed="true">Луна</button>
+          <button class="program-button" type="button" data-program="planets" aria-pressed="false">Планеты</button>
+          <button class="program-button" type="button" data-program="constellations" aria-pressed="false">Созвездия</button>
+        </div>
+        <article class="route-card" aria-labelledby="route-title" aria-describedby="route-description route-focus">
+          <div>
+            <h3 id="route-title">Маршрут „Лунный рельеф“</h3>
+            <p class="route-description" id="route-description">Кратеры, моря и линия терминатора в спокойном темпе.</p>
+            <p class="focus" id="route-focus"><strong>В фокусе</strong><span>Тихо, контрастно, подходит для первого наблюдения</span></p>
+          </div>
+          <div class="route-meta">
+            <div><span class="meta-label">Длительность</span><span class="meta-value" id="route-duration">60 минут</span></div>
+            <div><span class="meta-label">Группа</span><span class="meta-value" id="route-group">до восьми гостей</span></div>
+          </div>
+        </article>
+        <p class="sr-only" id="route-announcement" aria-live="polite" aria-atomic="true"></p>
+      </div>
+    </section>
+
+    <section class="wrap steps" id="steps" aria-labelledby="steps-title">
+      <span class="eyebrow">Всё просто</span>
+      <h2 id="steps-title">Три коротких шага к большому небу</h2>
+      <div class="steps-grid">
+        <article class="step"><span class="step-number">01</span><h3>Выберите маршрут</h3><p>Сравните программы и найдите ту, что подходит вашему вечеру.</p></article>
+        <article class="step"><span class="step-number">02</span><h3>Приходите в студию</h3><p>Встречаемся небольшой компанией и знакомимся с наблюдениями.</p></article>
+        <article class="step"><span class="step-number">03</span><h3>Смотрите на небо</h3><p>Рассматриваем детали и замечаем то, что обычно ускользает от взгляда.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap footer-inner"><span>Ночная линия</span><span>Городская обсерватория</span></div></footer>
+
+  <script>
+    const programs = {
+      moon: {
+        name: "Луна",
+        title: "Маршрут „Лунный рельеф“",
+        duration: "60 минут",
+        group: "до восьми гостей",
+        description: "Кратеры, моря и линия терминатора в спокойном темпе.",
+        focus: "Тихо, контрастно, подходит для первого наблюдения"
+      },
+      planets: {
+        name: "Планеты",
+        title: "Маршрут „Кольца и спутники“",
+        duration: "75 минут",
+        group: "до шести гостей",
+        description: "Ищем яркие планеты и сравниваем их движение на небе.",
+        focus: "Динамично, больше работы с телескопом"
+      },
+      constellations: {
+        name: "Созвездия",
+        title: "Маршрут „Небесная карта“",
+        duration: "50 минут",
+        group: "до десяти гостей",
+        description: "Находим опорные звёзды и собираем из них сезонную карту.",
+        focus: "Широкий обзор, больше ориентирования без приборов"
+      }
+    };
+
+    const fields = {
+      title: document.getElementById("route-title"),
+      duration: document.getElementById("route-duration"),
+      group: document.getElementById("route-group"),
+      description: document.getElementById("route-description"),
+      focus: document.querySelector("#route-focus span"),
+      announcement: document.getElementById("route-announcement")
+    };
+
+    document.querySelectorAll(".program-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const program = programs[button.dataset.program];
+        fields.title.textContent = program.title;
+        fields.duration.textContent = program.duration;
+        fields.group.textContent = program.group;
+        fields.description.textContent = program.description;
+        fields.focus.textContent = program.focus;
+
+        document.querySelectorAll(".program-button").forEach((item) => {
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+        fields.announcement.textContent = `${program.name}: ${program.title}, ${program.duration}, ${program.group}. ${program.description} В фокусе: ${program.focus}.`;
+      });
+    });
+  </script>
+</body>
+</html>
