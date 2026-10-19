@@ -1,0 +1,9 @@
+{
+  "name": "nochnaya-liniya",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "build": "node --check server.js"
+  }
+}

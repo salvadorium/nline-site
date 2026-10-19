@@ -165,6 +165,15 @@
     }
     .program-button:hover { border-color: #c76653; }
     .program-button[aria-pressed="true"] { border-color: #c76653; background: #c76653; color: #fff; }
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .menu-card { display: flex; min-height: 220px; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 28px; border: 1px solid transparent; background: var(--paper); color: var(--green); transition: border-color .18s ease, box-shadow .18s ease; }
+    .menu-card.selected { border-color: var(--coral); box-shadow: 0 0 0 2px #c7665320; }
+    .menu-card h3 { margin: 0; font: 500 clamp(25px, 3vw, 34px)/1.1 var(--serif); letter-spacing: -.04em; }
+    .menu-card .program-button { background: #fff; }
+    .menu-card.selected .program-button { background: var(--coral); color: #fff; }
+    .menu-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 18px; }
+    .menu-actions .button { margin-top: 0; }
+    .menu-feedback { min-height: 26px; margin: 15px 0 0; color: var(--green-soft); font-size: 14px; }
     .route-card {
       display: grid;
       grid-template-columns: 1fr 220px;
@@ -208,6 +217,8 @@
       .heading-note { max-width: 380px; }
       .program-tabs { display: grid; grid-template-columns: repeat(3, 1fr); }
       .program-button { min-width: 0; padding-inline: 8px; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .menu-card { min-height: 150px; }
       .route-card { grid-template-columns: 1fr; gap: 26px; }
       .route-meta { grid-template-columns: 1fr 1fr; padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--line); }
       .steps { padding-block: 86px; }
@@ -229,7 +240,7 @@
       <a class="brand" href="#top">Ночная линия<span aria-hidden="true">.</span></a>
       <nav class="nav" aria-label="Основная навигация">
         <a href="#format">Формат</a>
-        <a href="#programs">Программы</a>
+        <a href="#programs">Меню</a>
         <a href="#steps">Как это будет</a>
       </nav>
     </div>
@@ -241,7 +252,7 @@
         <span class="eyebrow">Городская обсерватория</span>
         <h1 id="hero-title">Ночь, которую видно в деталях</h1>
         <p class="hero-copy">Небольшие наблюдения в городе — чтобы остановиться, поднять голову и рассмотреть знакомое небо по-новому.</p>
-        <a class="button" href="#programs">Выбрать программу <span aria-hidden="true">↘</span></a>
+        <a class="button" href="#programs">Выбрать угощение <span aria-hidden="true">↘</span></a>
       </div>
       <div class="sky-art" role="img" aria-label="Светлая Луна на фоне светлого звёздного неба">
         <span class="star s1" aria-hidden="true"></span><span class="star s2" aria-hidden="true"></span>
@@ -257,7 +268,7 @@
           <p class="offer-label">Формат вечера</p>
           <h2 id="offer-title">Одно небо.<br>Три способа его увидеть.</h2>
         </div>
-        <p class="offer-detail">Выберите маршрут по настроению: от тихого знакомства с Луной до большой карты созвездий.</p>
+        <p class="offer-detail">Выберите угощение по настроению и устройтесь поудобнее для наблюдения за ночным небом.</p>
       </div>
     </section>
 
@@ -265,28 +276,20 @@
       <div class="wrap">
         <div class="section-heading">
           <div>
-            <span class="eyebrow">Выберите свой маршрут</span>
-            <h2 id="programs-title">Три маршрута по одному небу</h2>
+            <span class="eyebrow">Небольшое меню</span>
+            <h2 id="programs-title">Выберите угощение к вечеру</h2>
           </div>
-          <p class="heading-note">Спокойный вечер в небольшой группе. Переключайте программы, чтобы сравнить формат.</p>
+          <p class="heading-note">Три сладких спутника для вашего вечера под звёздами.</p>
         </div>
-        <div class="program-tabs" role="group" aria-label="Программы наблюдений">
-          <button class="program-button" type="button" data-program="moon" aria-pressed="true">Луна</button>
-          <button class="program-button" type="button" data-program="planets" aria-pressed="false">Планеты</button>
-          <button class="program-button" type="button" data-program="constellations" aria-pressed="false">Созвездия</button>
+        <div class="menu-grid" id="menu-list" aria-live="polite" aria-label="Позиции меню">
+          <p class="menu-feedback">Загружаем меню…</p>
         </div>
-        <article class="route-card" aria-labelledby="route-title" aria-describedby="route-description route-focus">
-          <div>
-            <h3 id="route-title">Маршрут „Лунный рельеф“</h3>
-            <p class="route-description" id="route-description">Кратеры, моря и линия терминатора в спокойном темпе.</p>
-            <p class="focus" id="route-focus"><strong>В фокусе</strong><span>Тихо, контрастно, подходит для первого наблюдения</span></p>
-          </div>
-          <div class="route-meta">
-            <div><span class="meta-label">Длительность</span><span class="meta-value" id="route-duration">60 минут</span></div>
-            <div><span class="meta-label">Группа</span><span class="meta-value" id="route-group">до восьми гостей</span></div>
-          </div>
-        </article>
-        <p class="sr-only" id="route-announcement" aria-live="polite" aria-atomic="true"></p>
+        <div class="menu-actions">
+          <button class="button" type="button" id="reset-selection" hidden>Сбросить выбор</button>
+          <button class="button" type="button" id="check-status">Проверить заказ</button>
+        </div>
+        <p class="menu-feedback" id="menu-feedback" aria-live="polite" aria-atomic="true"></p>
+        <p class="menu-feedback" id="status-feedback" aria-live="polite" aria-atomic="true"></p>
       </div>
     </section>
 
@@ -294,7 +297,7 @@
       <span class="eyebrow">Всё просто</span>
       <h2 id="steps-title">Три коротких шага к большому небу</h2>
       <div class="steps-grid">
-        <article class="step"><span class="step-number">01</span><h3>Выберите маршрут</h3><p>Сравните программы и найдите ту, что подходит вашему вечеру.</p></article>
+        <article class="step"><span class="step-number">01</span><h3>Выберите угощение</h3><p>Найдите сладкого спутника для своего вечера под звёздами.</p></article>
         <article class="step"><span class="step-number">02</span><h3>Приходите в студию</h3><p>Встречаемся небольшой компанией и знакомимся с наблюдениями.</p></article>
         <article class="step"><span class="step-number">03</span><h3>Смотрите на небо</h3><p>Рассматриваем детали и замечаем то, что обычно ускользает от взгляда.</p></article>
       </div>
@@ -304,57 +307,95 @@
   <footer><div class="wrap footer-inner"><span>Ночная линия</span><span>Городская обсерватория</span></div></footer>
 
   <script>
-    const programs = {
-      moon: {
-        name: "Луна",
-        title: "Маршрут „Лунный рельеф“",
-        duration: "60 минут",
-        group: "до восьми гостей",
-        description: "Кратеры, моря и линия терминатора в спокойном темпе.",
-        focus: "Тихо, контрастно, подходит для первого наблюдения"
-      },
-      planets: {
-        name: "Планеты",
-        title: "Маршрут „Кольца и спутники“",
-        duration: "75 минут",
-        group: "до шести гостей",
-        description: "Ищем яркие планеты и сравниваем их движение на небе.",
-        focus: "Динамично, больше работы с телескопом"
-      },
-      constellations: {
-        name: "Созвездия",
-        title: "Маршрут „Небесная карта“",
-        duration: "50 минут",
-        group: "до десяти гостей",
-        description: "Находим опорные звёзды и собираем из них сезонную карту.",
-        focus: "Широкий обзор, больше ориентирования без приборов"
-      }
-    };
+    const menuList = document.getElementById("menu-list");
+    const menuFeedback = document.getElementById("menu-feedback");
+    const statusFeedback = document.getElementById("status-feedback");
+    const resetButton = document.getElementById("reset-selection");
+    let selectedId = null;
 
-    const fields = {
-      title: document.getElementById("route-title"),
-      duration: document.getElementById("route-duration"),
-      group: document.getElementById("route-group"),
-      description: document.getElementById("route-description"),
-      focus: document.querySelector("#route-focus span"),
-      announcement: document.getElementById("route-announcement")
-    };
-
-    document.querySelectorAll(".program-button").forEach((button) => {
-      button.addEventListener("click", () => {
-        const program = programs[button.dataset.program];
-        fields.title.textContent = program.title;
-        fields.duration.textContent = program.duration;
-        fields.group.textContent = program.group;
-        fields.description.textContent = program.description;
-        fields.focus.textContent = program.focus;
-
-        document.querySelectorAll(".program-button").forEach((item) => {
-          item.setAttribute("aria-pressed", String(item === button));
-        });
-        fields.announcement.textContent = `${program.name}: ${program.title}, ${program.duration}, ${program.group}. ${program.description} В фокусе: ${program.focus}.`;
+    function showMenu(items) {
+      menuList.replaceChildren();
+      items.forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "menu-card";
+        card.dataset.itemId = item.id;
+        const title = document.createElement("h3");
+        title.textContent = item.name;
+        const button = document.createElement("button");
+        button.className = "program-button";
+        button.type = "button";
+        button.textContent = "Выбрать";
+        button.addEventListener("click", () => selectItem(item.id));
+        card.append(title, button);
+        menuList.append(card);
       });
+    }
+
+    async function loadMenu() {
+      try {
+        const response = await fetch("/api/menu");
+        if (!response.ok) throw new Error("Не удалось загрузить меню.");
+        const data = await response.json();
+        showMenu(data.items);
+      } catch {
+        menuList.textContent = "Меню временно недоступно. Обновите страницу.";
+      }
+    }
+
+    async function selectItem(id) {
+      menuFeedback.textContent = "";
+      try {
+        const response = await fetch("/api/selection", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Не удалось выбрать позицию.");
+        selectedId = data.item.id;
+        document.querySelectorAll(".menu-card").forEach((card) => {
+          const selected = card.dataset.itemId === selectedId;
+          card.classList.toggle("selected", selected);
+          card.querySelector("button").setAttribute("aria-pressed", String(selected));
+        });
+        menuFeedback.textContent = data.message;
+        resetButton.hidden = false;
+      } catch (error) {
+        menuFeedback.textContent = error.message;
+      }
+    }
+
+    resetButton.addEventListener("click", async () => {
+      try {
+        const response = await fetch("/api/reset", { method: "POST" });
+        const data = await response.json();
+        if (!response.ok) throw new Error("Не удалось сбросить выбор.");
+        selectedId = null;
+        document.querySelectorAll(".menu-card").forEach((card) => {
+          card.classList.remove("selected");
+          card.querySelector("button").setAttribute("aria-pressed", "false");
+        });
+        menuFeedback.textContent = data.message;
+        resetButton.hidden = true;
+        statusFeedback.textContent = "";
+      } catch (error) {
+        menuFeedback.textContent = error.message;
+      }
     });
+
+    document.getElementById("check-status").addEventListener("click", async () => {
+      statusFeedback.textContent = "Проверяем сервер…";
+      try {
+        const response = await fetch("/api/status");
+        const data = await response.json();
+        if (!response.ok || !data.ok) throw new Error("Сервер сейчас недоступен.");
+        statusFeedback.textContent = `Сервер доступен. Время сервера: ${new Date(data.time).toLocaleString("ru-RU")}.`;
+      } catch (error) {
+        statusFeedback.textContent = error.message;
+      }
+    });
+
+    loadMenu();
   </script>
 </body>
 </html>
